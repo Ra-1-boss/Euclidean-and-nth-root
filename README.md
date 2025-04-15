@@ -1,28 +1,29 @@
-nth-root
-def nth_root(x, n, precision=1e-10):
+Euclidean
+import math
+
+def euclidean_distance(p1, p2):
     """
-    Calculate the nth root of a number x using the Newton-Raphson method.
+    Compute the Euclidean distance between two points in n-dimensional space.
     
     Args:
-        x (float): The number to find the root of.
-        n (int): The degree of the root (e.g., 2 for square root).
-        precision (float): Desired accuracy of the result.
+        p1 (list): First point coordinates (e.g., [x1, y1, z1]).
+        p2 (list): Second point coordinates (e.g., [x2, y2, z2]).
     
     Returns:
-        float: The nth root of x.
-    """
-    if x < 0 and n % 2 == 0:
-        raise ValueError("Cannot compute even root of a negative number.")
-    if n == 0:
-        raise ValueError("Undefined for n = 0.")
+        float: The Euclidean distance between p1 and p2.
     
-    guess = x  # Initial guess
-    while True:
-        next_guess = ((n - 1) * guess + x / (guess ** (n - 1))) / n
-        if abs(next_guess - guess) < precision:
-            return next_guess
-        guess = next_guess
+    Raises:
+        ValueError: If points have different dimensions.
+    """
+    if len(p1) != len(p2):
+        raise ValueError("Points must have the same dimensions.")
+    
+    squared_diff = sum((a - b) ** 2 for a, b in zip(p1, p2))
+    return math.sqrt(squared_diff)
 
 # Example usage:
-print(nth_root(27, 3))  # Cube root of 27 (~3.0)
-print(nth_root(16, 4))  # 4th root of 16 (~2.0)
+point1 = [1, 2, 3]
+point2 = [4, 5, 6]
+print(euclidean_distance(point1, point2))  # Output: ~5.196 (√27)
+    
+   
